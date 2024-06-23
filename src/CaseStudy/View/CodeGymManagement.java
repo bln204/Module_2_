@@ -2,15 +2,14 @@ package CaseStudy.View;
 
 import CaseStudy.Controller.Student.StudentController;
 import CaseStudy.Controller.Teacher.TeacherController;
+import CaseStudy.Model.Student;
 
 import java.util.Scanner;
 
 public class CodeGymManagement {
-    private static  Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         chooseMainFunction();
-//        StudentController studentController = new StudentController();
-//        studentController.displayStudents();
     }
 
     public static void chooseMainFunction() {
@@ -39,6 +38,7 @@ public class CodeGymManagement {
     }
 
     public static void chooseStudentFunction(){
+
         StudentController studentController = new StudentController();
         do{
             System.out.println("Lựa chọn chức năng: \n" +
@@ -54,7 +54,7 @@ public class CodeGymManagement {
                     studentController.displayStudents();
                     break;
                 case 2:
-                    System.out.println("Thêm mới");
+                    studentController.addStudent();
                     break;
                 case 3:
                     System.out.println("Chỉnh sửa");

@@ -12,4 +12,12 @@ public class StudentSeviceImpl implements IStudentSevice{
     public Student[] findAll() {
         return iStudentRepository.findAll();
     }
+
+
+
+    @Override
+    public Student[] addStudent() {
+        iStudentRepository.addStudent();
+        return null;
+    }
 }

@@ -18,4 +18,9 @@ public class StudentRepositoryImpl implements IStudentRepository {
     public Student[] findAll() {
         return students;
     }
+
+    @Override
+    public Student[] addStudent() {
+        return students;
+    }
 }
