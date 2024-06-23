@@ -9,6 +9,10 @@ public abstract class Person {
     private String email;
 
     public Person(int id, String name, LocalDate birthday, String email) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
     }
 
     public String getEmail() {
