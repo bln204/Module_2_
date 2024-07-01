@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class Student extends Person {
     private String className;
 
-    public Student (int id, String name, LocalDate birthday, String email, String className){
-        super(id, name, birthday, email);
+    public Student (int id, String code, String name, LocalDate birthday, String email, String className){
+        super(id, code, name, birthday, email);
         this.className = className;
     }
 

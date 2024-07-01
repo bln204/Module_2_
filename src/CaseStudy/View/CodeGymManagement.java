@@ -57,10 +57,10 @@ public class CodeGymManagement {
                     studentController.addStudent();
                     break;
                 case 3:
-                    System.out.println("Chỉnh sửa");
+                    studentController.editStudent();
                     break;
                 case 4:
-                    System.out.println("Xóa");
+                    studentController.removeStudent();
                     break;
                 case 5:
                     return;
@@ -86,13 +86,13 @@ public class CodeGymManagement {
                     teacherController.displayTeachers();
                     break;
                 case 2:
-                    System.out.println("Thêm mới");
+                    teacherController.addTeacher();
                     break;
                 case 3:
-                    System.out.println("Chỉnh sửa");
+                    teacherController.editTeacher();
                     break;
                 case 4:
-                    System.out.println("Xóa");
+                    teacherController.removeTeacher();
                     break;
                 case 5:
                     return;

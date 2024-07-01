@@ -2,7 +2,11 @@ package CaseStudy.sevice;
 
 import CaseStudy.Model.Student;
 
+import java.util.List;
+
 public interface IStudentSevice {
-    Student[] findAll();
-    Student[] addStudent();
+    List<Student> findAll();
+    void addStudent(Student student);
+    void removeStudent(Student student);
+    void editStudent(Student student);
 }
