@@ -18,6 +18,15 @@ public class StudentSeviceImpl implements IStudentSevice{
 
     @Override
     public void addStudent(Student student) {
+        List<Student> list = findAll();
+        int id;
+        if(list.isEmpty()) {
+            id = 1;
+            student.setId(id);
+        } else {
+            id = list.get(list.size() - 1).getId() + 1;
+            student.setId(id);
+        }
         iStudentRepository.addStudent(student);
     }
 

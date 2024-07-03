@@ -26,8 +26,8 @@ public class TeacherController {
         int number = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < number; i++) {
             System.out.println("Nhập thông tin giảng viên thứ " + (i + 1) + ":");
-            System.out.println("Nhập id giảng viên:");
-            int id = Integer.parseInt(scanner.nextLine());
+//            System.out.println("Nhập id giảng viên:");
+//            int id = Integer.parseInt(scanner.nextLine());
             System.out.println("Nhập mã giảng viên:");
             String code = scanner.nextLine();
             System.out.println("Nhập tên giảng viên:");
@@ -38,7 +38,7 @@ public class TeacherController {
             String email = scanner.nextLine();
             System.out.println("Nhập mức lương:");
             int salary = Integer.parseInt(scanner.nextLine());
-            Teacher teacher = new Teacher(id, code, name, birthday, email, salary);
+            Teacher teacher = new Teacher(0, code, name, birthday, email, salary);
             iTeacherSevice.addTeacher(teacher);
         }
         System.out.println("Đã thêm thành công!");
@@ -46,7 +46,7 @@ public class TeacherController {
     }
 
     public void removeTeacher (){
-        System.out.println("Nhập id học viên cần xóa:");
+        System.out.println("Nhập id giảng viên cần xóa:");
         int id = Integer.parseInt(scanner.nextLine());
         List<Teacher> students = iTeacherSevice.findAll();
 
@@ -72,7 +72,7 @@ public class TeacherController {
     }
 
     public void editTeacher (){
-        System.out.println("Nhập id học viên cần chỉnh sửa:");
+        System.out.println("Nhập id giảng viên cần chỉnh sửa:");
         int id = Integer.parseInt(scanner.nextLine());
         List<Teacher> teachers = iTeacherSevice.findAll();
 
@@ -94,27 +94,27 @@ public class TeacherController {
                     int choiceEdit = Integer.parseInt(scanner.nextLine());
                     switch (choiceEdit) {
                         case 1:
-                            System.out.println("Nhập mã giảng viên:");
+                            System.out.println("Nhập mã giảng viên mới:");
                             String code = scanner.nextLine();
                             temp.setCode(code);
                             break;
                         case 2:
-                            System.out.println("Nhập tên giảng viên:");
+                            System.out.println("Nhập tên giảng viên mới:");
                             String name = scanner.nextLine();
                             temp.setName(name);
                             break;
                         case 3:
-                            System.out.println("Nhập ngày sinh giảng viên:");
+                            System.out.println("Nhập ngày sinh giảng viên mới:");
                             LocalDate birthday = LocalDate.parse(scanner.nextLine());
                             temp.setBirthday(birthday);
                             break;
                         case 4:
-                            System.out.println("Nhập email giảng viên:");
+                            System.out.println("Nhập email giảng viên mới:");
                             String email = scanner.nextLine();
                             temp.setEmail(email);
                             break;
                         case 5:
-                            System.out.println("Nhập lương giảng viên:");
+                            System.out.println("Nhập lương giảng viên mới:");
                             int salary = scanner.nextInt();
                             temp.setSalary(salary);
                             break;

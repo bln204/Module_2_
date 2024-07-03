@@ -75,9 +75,9 @@ public class CodeGymManagement {
         do{
             System.out.println("Lựa chọn chức năng: \n" +
                     "1. Hiển thị danh sách. \n" +
-                    "2. Thêm mới học viên. \n" +
-                    "3. Chỉnh sửa thông tin học viên. \n" +
-                    "4. Xóa học viên. \n" +
+                    "2. Thêm mới giảng viên. \n" +
+                    "3. Chỉnh sửa thông tin giảng viên. \n" +
+                    "4. Xóa giảng viên. \n" +
                     "5. Quay về. \n"
             );
             int choiceTeacher = Integer.parseInt(scanner.nextLine());

@@ -30,8 +30,8 @@ public class StudentController {
 
         for (int i = 0; i < number; i++) {
             System.out.println("Nhập thông tin học viên thứ " + (i + 1) + ":");
-            System.out.println("Nhập id học viên:");
-            int id = Integer.parseInt(scanner.nextLine());
+//            System.out.println("Nhập id học viên:");
+//            int id = Integer.parseInt(scanner.nextLine());
             System.out.println("Nhập mã học viên:");
             String code = scanner.nextLine();
             System.out.println("Nhập tên học viên");
@@ -42,7 +42,7 @@ public class StudentController {
             String email = scanner.nextLine();
             System.out.println("Nhập mã lớp học viên:");
             String className = scanner.nextLine();
-            Student student = new Student(id, code, name, birthday, email, className);
+            Student student = new Student(0, code, name, birthday, email, className);
             iStudentSevice.addStudent(student);
         }
 
@@ -99,27 +99,27 @@ public class StudentController {
                     int choiceEdit = Integer.parseInt(scanner.nextLine());
                     switch (choiceEdit) {
                         case 1:
-                            System.out.println("Nhập mã học viên:");
+                            System.out.println("Nhập mã học viên mới:");
                             String code = scanner.nextLine();
                             temp.setCode(code);
                             break;
                         case 2:
-                            System.out.println("Nhập tên học viên:");
+                            System.out.println("Nhập tên học viên mới:");
                             String name = scanner.nextLine();
                             temp.setName(name);
                             break;
                         case 3:
-                            System.out.println("Nhập ngày sinh học viên:");
+                            System.out.println("Nhập ngày sinh học viên mới:");
                             LocalDate birthday = LocalDate.parse(scanner.nextLine());
                             temp.setBirthday(birthday);
                             break;
                         case 4:
-                            System.out.println("Nhập email học viên:");
+                            System.out.println("Nhập email học viên mới:");
                             String email = scanner.nextLine();
                             temp.setEmail(email);
                             break;
                         case 5:
-                            System.out.println("Nhập mã lớp học viên:");
+                            System.out.println("Nhập mã lớp học viên mới:");
                             String className = scanner.nextLine();
                             temp.setClassName(className);
                             break;
