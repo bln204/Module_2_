@@ -46,7 +46,8 @@ public class CodeGymManagement {
                     "2. Thêm mới học viên. \n" +
                     "3. Chỉnh sửa thông tin học viên. \n" +
                     "4. Xóa học viên. \n" +
-                    "5. Quay về. \n"
+                    "5. Tìm kiếm học viên. \n" +
+                    "6. Quay về. \n"
             );
             int choiceStudent = Integer.parseInt(scanner.nextLine());
             switch (choiceStudent){
@@ -63,6 +64,9 @@ public class CodeGymManagement {
                     studentController.removeStudent();
                     break;
                 case 5:
+                    studentController.searchStudent();
+                    break;
+                case 6 :
                     return;
             }
 

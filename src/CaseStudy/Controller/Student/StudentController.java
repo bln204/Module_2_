@@ -6,6 +6,7 @@ import CaseStudy.sevice.IStudentSevice;
 import CaseStudy.sevice.StudentSeviceImpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -132,5 +133,18 @@ public class StudentController {
 
         }
 
+    }
+
+    public void searchStudent(){
+        System.out.println("Nhập tên học viên cần tìm: ");
+        String temName = scanner.nextLine();
+        List<Student> result = new ArrayList<>();
+        List<Student> students = iStudentSevice.findAll();
+        for (Student student : students){
+            if (student.getName().equals(temName)){
+                result.add(student);
+            }
+        }
+        System.out.println(result);
     }
 }

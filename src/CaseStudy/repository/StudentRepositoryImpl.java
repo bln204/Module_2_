@@ -23,6 +23,11 @@ public class StudentRepositoryImpl implements IStudentRepository {
     }
 
     @Override
+    public List<Student> searchStundent(Student student) {
+        return students ;
+    }
+
+    @Override
     public void addStudent(Student student) {
        students.add(student);
     }

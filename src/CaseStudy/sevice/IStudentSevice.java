@@ -9,4 +9,5 @@ public interface IStudentSevice {
     void addStudent(Student student);
     void removeStudent(Student student);
     void editStudent(Student student);
+    List<Student> searchStudent(Student student);
 }

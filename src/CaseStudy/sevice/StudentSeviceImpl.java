@@ -17,6 +17,11 @@ public class StudentSeviceImpl implements IStudentSevice{
     }
 
     @Override
+    public List<Student> searchStudent(Student student) {
+        return List.of();
+    }
+
+    @Override
     public void addStudent(Student student) {
         List<Student> list = findAll();
         int id;
