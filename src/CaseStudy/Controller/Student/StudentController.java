@@ -141,7 +141,7 @@ public class StudentController {
         List<Student> result = new ArrayList<>();
         List<Student> students = iStudentSevice.findAll();
         for (Student student : students){
-            if (student.getName().equals(temName)){
+            if (student.getName().contains(temName)){
                 result.add(student);
             }
         }
