@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StudentRepositoryImpl implements IStudentRepository {
 
-    private static final List<Student> students;
+    private static  List<Student> students;
     static {
         students = new ArrayList<>();
         students.add(new Student(1, "HV-001","Bùi Lê Nam", LocalDate.parse("2004-09-03"), "lenam@gmail.com", "C0324M4"));
@@ -24,7 +24,17 @@ public class StudentRepositoryImpl implements IStudentRepository {
 
     @Override
     public List<Student> searchStundent(Student student) {
-        return students ;
+        return students;
+    }
+
+    @Override
+    public void writeToCSV() {
+
+    }
+
+    @Override
+    public List<Student> getStudents() {
+        return students;
     }
 
     @Override

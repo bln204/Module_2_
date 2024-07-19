@@ -5,7 +5,9 @@ import CaseStudy.Model.Student;
 import CaseStudy.sevice.IStudentSevice;
 import CaseStudy.sevice.StudentSeviceImpl;
 
+import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -135,16 +137,57 @@ public class StudentController {
 
     }
 
-    public void searchStudent(){
+    public void searchStudent() {
         System.out.println("Nhập tên học viên cần tìm: ");
         String temName = scanner.nextLine();
         List<Student> result = new ArrayList<>();
         List<Student> students = iStudentSevice.findAll();
-        for (Student student : students){
-            if (student.getName().contains(temName)){
+        for (Student student : students) {
+            if (student.getName().contains(temName)) {
                 result.add(student);
             }
         }
         System.out.println(result);
+    }
+
+    public void writeStudentToCSV() {
+        File studentFile = new File("src/CaseStudy/Controller/Student/student.csv");
+        try (
+                FileWriter fileWriter = new FileWriter(studentFile);
+                ) {
+            List<Student> students = iStudentSevice.findAll();
+            for (Student student : students) {
+                fileWriter.write(student.getId() + "," + student.getCode() + "," + student.getName() + "," +
+                        student.getBirthday().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "," +
+                        student.getEmail() + "," + student.getClassName() + "\n");
+            }
+            System.out.println("Đã ghi thành công vào file CSV!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readStudentFromCSV() {
+        File studentFile = new File("src/CaseStudy/Controller/Student/student.csv");
+        try (
+                FileReader fileReader = new FileReader(studentFile);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                ){
+            String line;
+            while ((line = bufferedReader.readLine())!= null) {
+                String[] studentInfo = line.split(",");
+                int id = Integer.parseInt(studentInfo[0]);
+                String code = studentInfo[1];
+                String name = studentInfo[2];
+                LocalDate birthday = LocalDate.parse(studentInfo[3], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String email = studentInfo[4];
+                String className = studentInfo[5];
+                Student student = new Student(id, code, name, birthday, email, className);
+                System.out.println(student);
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

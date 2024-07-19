@@ -2,7 +2,6 @@ package CaseStudy.View;
 
 import CaseStudy.Controller.Student.StudentController;
 import CaseStudy.Controller.Teacher.TeacherController;
-import CaseStudy.Model.Student;
 
 import java.util.Scanner;
 
@@ -47,7 +46,9 @@ public class CodeGymManagement {
                     "3. Chỉnh sửa thông tin học viên. \n" +
                     "4. Xóa học viên. \n" +
                     "5. Tìm kiếm học viên. \n" +
-                    "6. Quay về. \n"
+                    "6. Nhập học viên vào file CSV.\n" +
+                    "7. Xuất học viên từ file CSV.\n" +
+                    "8. Quay về. \n"
             );
             int choiceStudent = Integer.parseInt(scanner.nextLine());
             switch (choiceStudent){
@@ -67,6 +68,12 @@ public class CodeGymManagement {
                     studentController.searchStudent();
                     break;
                 case 6 :
+                    studentController.writeStudentToCSV();
+                    break;
+                case 7:
+                    studentController.readStudentFromCSV();
+                    break;
+                case 8:
                     return;
             }
 
@@ -82,7 +89,9 @@ public class CodeGymManagement {
                     "2. Thêm mới giảng viên. \n" +
                     "3. Chỉnh sửa thông tin giảng viên. \n" +
                     "4. Xóa giảng viên. \n" +
-                    "5. Quay về. \n"
+                    "5. Tìm kiếm giảng viên. \n" +
+                    "6. Quay về. \n"
+
             );
             int choiceTeacher = Integer.parseInt(scanner.nextLine());
             switch (choiceTeacher){
@@ -99,6 +108,9 @@ public class CodeGymManagement {
                     teacherController.removeTeacher();
                     break;
                 case 5:
+                    teacherController.searchTeacher();
+                    break;
+                case 6:
                     return;
             }
         }while (true);

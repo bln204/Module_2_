@@ -22,6 +22,16 @@ public class StudentSeviceImpl implements IStudentSevice{
     }
 
     @Override
+    public void writeToCSV() {
+
+    }
+
+    @Override
+    public List<Student> getStudents() {
+        return iStudentRepository.getStudents();
+    }
+
+    @Override
     public void addStudent(Student student) {
         List<Student> list = findAll();
         int id;

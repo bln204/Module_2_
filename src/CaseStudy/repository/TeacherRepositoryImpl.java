@@ -30,6 +30,11 @@ public class TeacherRepositoryImpl implements ITeacherRepository{
     }
 
     @Override
+    public List<Teacher> searchTeacher(Teacher teacher) {
+        return List.of();
+    }
+
+    @Override
     public List<Teacher> findAll() {
         return teachers;
     }

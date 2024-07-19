@@ -11,6 +11,11 @@ public class TeacherSeviceImpl implements ITeacherSevice{
     private ITeacherRepository iTeacherRepository = new TeacherRepositoryImpl();
 
     @Override
+    public List<Teacher> searchTeacher(Teacher teacher) {
+        return List.of();
+    }
+
+    @Override
     public void addTeacher(Teacher teacher) {
         List<Teacher> list = findAll();
         int id;

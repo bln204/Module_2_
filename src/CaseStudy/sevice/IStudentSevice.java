@@ -10,4 +10,6 @@ public interface IStudentSevice {
     void removeStudent(Student student);
     void editStudent(Student student);
     List<Student> searchStudent(Student student);
+    void writeToCSV ();
+    List<Student> getStudents();
 }

@@ -7,4 +7,5 @@ public interface ITeacherRepository {
     void addTeacher (Teacher teacher);
     void removeTeacher(Teacher teacher);
     void editTeacher(Teacher teacher);
+    List<Teacher> searchTeacher(Teacher teacher);
 }

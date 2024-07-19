@@ -6,6 +6,7 @@ import CaseStudy.sevice.ITeacherSevice;
 import CaseStudy.sevice.TeacherSeviceImpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,14 +15,15 @@ import static java.lang.System.exit;
 public class TeacherController {
     private static Scanner scanner = new Scanner(System.in);
     private ITeacherSevice iTeacherSevice = new TeacherSeviceImpl();
-    public void displayTeachers (){
+
+    public void displayTeachers() {
         List<Teacher> teachers = iTeacherSevice.findAll();
         for (Teacher teacher : teachers) {
             System.out.println(teacher);
         }
     }
 
-    public void addTeacher (){
+    public void addTeacher() {
         System.out.println("Nhập số lượng giảng viên cần thêm:");
         int number = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < number; i++) {
@@ -45,7 +47,7 @@ public class TeacherController {
         System.out.println();
     }
 
-    public void removeTeacher (){
+    public void removeTeacher() {
         System.out.println("Nhập id giảng viên cần xóa:");
         int id = Integer.parseInt(scanner.nextLine());
         List<Teacher> students = iTeacherSevice.findAll();
@@ -71,7 +73,7 @@ public class TeacherController {
         System.out.println();
     }
 
-    public void editTeacher (){
+    public void editTeacher() {
         System.out.println("Nhập id giảng viên cần chỉnh sửa:");
         int id = Integer.parseInt(scanner.nextLine());
         List<Teacher> teachers = iTeacherSevice.findAll();
@@ -127,5 +129,18 @@ public class TeacherController {
 
         }
 
+    }
+
+    public void searchTeacher() {
+        System.out.println("Nhập tên giảng viên cần tìm:");
+        String tempName = scanner.nextLine();
+        List<Teacher> teachers = iTeacherSevice.findAll();
+        List<Teacher> result = new ArrayList<>();
+        for (Teacher teacher : teachers) {
+            if (teacher.getName().contains(tempName)) {
+                result.add(teacher);
+            }
+        }
+        System.out.println(result);
     }
 }
