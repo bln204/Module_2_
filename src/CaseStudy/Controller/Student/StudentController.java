@@ -37,15 +37,12 @@ public class StudentController {
             System.out.println("Nhập thông tin học viên thứ " + (i + 1) + ":");
 //            System.out.println("Nhập id học viên:");
 //            int id = Integer.parseInt(scanner.nextLine());
-            String code = checkCode();
+            String code = regexCode();
             System.out.println("Nhập tên học viên");
             String name = scanner.nextLine();
-            System.out.println("Nhập ngày sinh học viên:");
-            LocalDate birthday = LocalDate.parse(scanner.nextLine());
-            System.out.println("Nhập email học viên:");
-            String email = scanner.nextLine();
-            System.out.println("Nhập mã lớp học viên:");
-            String className = scanner.nextLine();
+            LocalDate birthday = regexBirthday();
+            String email = regexEmail();
+            String className = regexClassName();
             Student student = new Student(0, code, name, birthday, email, className);
             iStudentSevice.addStudent(student);
         }
@@ -55,7 +52,7 @@ public class StudentController {
     }
 
 
-    public static String checkCode() {
+    public static String regexCode() {
         String codeRegex = "HV-\\d{3}";
         Pattern pat = Pattern.compile(codeRegex);
         while (true) {
@@ -67,6 +64,55 @@ public class StudentController {
                 return code;
             } else {
                 System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+            }
+        }
+    }
+
+    public static LocalDate regexBirthday (){
+        String birthdayRegex  = "^([0-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(\\d{4})$";
+        Pattern pat = Pattern.compile(birthdayRegex);
+        while (true){
+            System.out.println("Nhập ngày sinh học viên (dd-MM-yyyy):");
+            String birthdayInput = scanner.nextLine();
+            Matcher matcher = pat.matcher(birthdayInput);
+
+            if (matcher.matches()){
+                LocalDate birthday = LocalDate.parse(birthdayInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                return birthday;
+            } else {
+                System.out.println("Ngày sinh phải có dạng dd-MM-yyyy. Vui lòng nhập lại:");
+            }
+        }
+    }
+
+    public static String regexEmail(){
+        String emailRegex = "^[\\\\w.-]+@[\\\\w.-]+\\\\.[a-zA-Z]{2,6}$ ";
+        Pattern pat = Pattern.compile(emailRegex);
+        while (true){
+            System.out.println("Nhập email học viên:");
+            String email = scanner.nextLine();
+            Matcher matcher = pat.matcher(email);
+
+            if (matcher.matches()){
+                return email;
+            } else {
+                System.out.println("Email phải có dạng tài khoản email và phải đúng đ��nh dạng. Vui lòng nhập lại:");
+            }
+        }
+    }
+
+    public static String regexClassName(){
+        String classNameRegex = "^C\\\\w{6}$";
+        Pattern pat = Pattern.compile(classNameRegex);
+        while (true){
+            System.out.println("Nhập mã lớp học viên:");
+            String className = scanner.nextLine();
+            Matcher matcher = pat.matcher(className);
+
+            if (matcher.matches()){
+                return className;
+            } else {
+                System.out.println("Mã lớp học viên phải có dạng A-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
             }
         }
     }
