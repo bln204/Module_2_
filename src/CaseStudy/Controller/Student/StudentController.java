@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.exit;
 
@@ -35,8 +37,7 @@ public class StudentController {
             System.out.println("Nhập thông tin học viên thứ " + (i + 1) + ":");
 //            System.out.println("Nhập id học viên:");
 //            int id = Integer.parseInt(scanner.nextLine());
-            System.out.println("Nhập mã học viên:");
-            String code = scanner.nextLine();
+            String code = checkCode();
             System.out.println("Nhập tên học viên");
             String name = scanner.nextLine();
             System.out.println("Nhập ngày sinh học viên:");
@@ -51,6 +52,23 @@ public class StudentController {
 
         System.out.println("Đã thêm thành công học viên!");
         System.out.println();
+    }
+
+
+    public static String checkCode() {
+        String codeRegex = "HV-\\d{3}";
+        Pattern pat = Pattern.compile(codeRegex);
+        while (true) {
+            System.out.println("Nhập mã học viên:");
+            String code = scanner.nextLine();
+            Matcher matcher = pat.matcher(code);
+
+            if (matcher.matches()) {
+                return code;
+            } else {
+                System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+            }
+        }
     }
 
     public void removeStudent() {
@@ -154,7 +172,7 @@ public class StudentController {
         File studentFile = new File("src/CaseStudy/Controller/Student/student.csv");
         try (
                 FileWriter fileWriter = new FileWriter(studentFile);
-                ) {
+        ) {
             List<Student> students = iStudentSevice.findAll();
             for (Student student : students) {
                 fileWriter.write(student.getId() + "," + student.getCode() + "," + student.getName() + "," +
@@ -173,9 +191,9 @@ public class StudentController {
         try (
                 FileReader fileReader = new FileReader(studentFile);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
-                ){
+        ) {
             String line;
-            while ((line = bufferedReader.readLine())!= null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 String[] studentInfo = line.split(",");
                 int id = Integer.parseInt(studentInfo[0]);
                 String code = studentInfo[1];
@@ -186,7 +204,7 @@ public class StudentController {
                 Student student = new Student(id, code, name, birthday, email, className);
                 System.out.println(student);
             }
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
