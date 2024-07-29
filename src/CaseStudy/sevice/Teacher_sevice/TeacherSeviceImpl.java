@@ -1,18 +1,23 @@
-package CaseStudy.sevice;
+package CaseStudy.sevice.Teacher_sevice;
 
 import CaseStudy.Model.Teacher;
-import CaseStudy.repository.ITeacherRepository;
-import CaseStudy.repository.TeacherRepositoryImpl;
+import CaseStudy.repository.Teacher_repo.ITeacherRepository;
+import CaseStudy.repository.Teacher_repo.TeacherRepositoryImpl;
 
 import java.util.List;
 
-public class TeacherSeviceImpl implements ITeacherSevice{
+public class TeacherSeviceImpl implements ITeacherSevice {
 
     private ITeacherRepository iTeacherRepository = new TeacherRepositoryImpl();
 
     @Override
     public List<Teacher> searchTeacher(Teacher teacher) {
         return List.of();
+    }
+
+    @Override
+    public Teacher findByID(int id) {
+        return iTeacherRepository.findById(id);
     }
 
     @Override
@@ -30,8 +35,8 @@ public class TeacherSeviceImpl implements ITeacherSevice{
     }
 
     @Override
-    public void removeTeacher(Teacher teacher) {
-        iTeacherRepository.removeTeacher(teacher);
+    public void removeTeacher(int id) {
+        iTeacherRepository.removeTeacher(id);
     }
 
     @Override

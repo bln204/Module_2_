@@ -2,10 +2,9 @@ package CaseStudy.Controller.Student;
 
 
 import CaseStudy.Model.Student;
-import CaseStudy.sevice.IStudentSevice;
-import CaseStudy.sevice.StudentSeviceImpl;
+import CaseStudy.sevice.Student_sevice.IStudentSevice;
+import CaseStudy.sevice.Student_sevice.StudentSeviceImpl;
 
-import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,12 +36,23 @@ public class StudentController {
             System.out.println("Nhập thông tin học viên thứ " + (i + 1) + ":");
 //            System.out.println("Nhập id học viên:");
 //            int id = Integer.parseInt(scanner.nextLine());
-            String code = regexCode();
+            System.out.println("Nhập mã học viên có dạng HV-XXX:");
+            String codeTemp = scanner.nextLine();
+            String code = regexCode(codeTemp);
             System.out.println("Nhập tên học viên");
             String name = scanner.nextLine();
-            LocalDate birthday = regexBirthday();
-            String email = regexEmail();
-            String className = regexClassName();
+            System.out.println("Nhập ngày sinh học viên dạng dd-MM-yyyy: ");
+//            String birthdayTemp = scanner.nextLine();
+//            LocalDate birthday = regexBirthday(birthdayTemp);
+            LocalDate birthday = LocalDate.parse(scanner.nextLine());
+            System.out.println("Nhập email học viên:");
+//            String emailTemp =  scanner.nextLine();
+//            String email = regexEmail(emailTemp);
+            String email = scanner.nextLine();
+            System.out.println("Nhập mã lớp học viên: ");
+//            String classNameTemp = scanner.nextLine();
+//            String className = regexClassName(classNameTemp);
+            String className = scanner.nextLine();
             Student student = new Student(0, code, name, birthday, email, className);
             iStudentSevice.addStudent(student);
         }
@@ -51,154 +61,149 @@ public class StudentController {
         System.out.println();
     }
 
+    public boolean isExist(int id){
+        Student student = iStudentSevice.findByID(id);
+        return student!= null;
+    }
 
-    public static String regexCode() {
+    public static String regexCode(String codeInput) {
         String codeRegex = "HV-\\d{3}";
         Pattern pat = Pattern.compile(codeRegex);
-        while (true) {
-            System.out.println("Nhập mã học viên:");
-            String code = scanner.nextLine();
-            Matcher matcher = pat.matcher(code);
+        Matcher matcher = pat.matcher(codeInput);
 
             if (matcher.matches()) {
-                return code;
+                return codeInput;
             } else {
-                System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+                while (true) {
+                    System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+                    System.out.println("Nhập lại mã học viên:");
+                    codeInput = scanner.nextLine();
+                    pat.matcher(codeInput);
             }
         }
     }
 
-    public static LocalDate regexBirthday (){
+    public static LocalDate regexBirthday (String birthdayInput){
         String birthdayRegex  = "^([0-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(\\d{4})$";
         Pattern pat = Pattern.compile(birthdayRegex);
-        while (true){
-            System.out.println("Nhập ngày sinh học viên (dd-MM-yyyy):");
-            String birthdayInput = scanner.nextLine();
-            Matcher matcher = pat.matcher(birthdayInput);
+        Matcher matcher = pat.matcher(birthdayInput);
 
             if (matcher.matches()){
                 LocalDate birthday = LocalDate.parse(birthdayInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 return birthday;
             } else {
-                System.out.println("Ngày sinh phải có dạng dd-MM-yyyy. Vui lòng nhập lại:");
+                while (true){
+                    System.out.println("Ngày sinh phải có dạng dd-MM-yyyy. Vui lòng nhập lại:");
+                    System.out.println("Nhập lại ngày sinh học viên (dd-MM-yyyy):");
+                    birthdayInput = scanner.nextLine();
+                    pat.matcher(birthdayInput);
             }
         }
     }
 
-    public static String regexEmail(){
-        String emailRegex = "^[\\\\w.-]+@[\\\\w.-]+\\\\.[a-zA-Z]{2,6}$ ";
+    public static String regexEmail(String emailInput) {
+        String emailRegex = "\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b ";
         Pattern pat = Pattern.compile(emailRegex);
-        while (true){
-            System.out.println("Nhập email học viên:");
-            String email = scanner.nextLine();
-            Matcher matcher = pat.matcher(email);
+        Matcher matcher = pat.matcher(emailInput);
 
             if (matcher.matches()){
-                return email;
+                return emailInput;
             } else {
-                System.out.println("Email phải có dạng tài khoản email và phải đúng đ��nh dạng. Vui lòng nhập lại:");
+                while (true){
+                    System.out.println("Email phải có dạng tài khoản email và phải đúng định dạng. Vui lòng nhập lại:");
+                    System.out.println("Nhập lại email học viên:");
+                    String email = scanner.nextLine();
+                    pat.matcher(email);
             }
         }
     }
 
-    public static String regexClassName(){
+    public static String regexClassName(String classNameInput){
         String classNameRegex = "^C\\\\w{6}$";
         Pattern pat = Pattern.compile(classNameRegex);
-        while (true){
-            System.out.println("Nhập mã lớp học viên:");
-            String className = scanner.nextLine();
-            Matcher matcher = pat.matcher(className);
-
+        Matcher matcher = pat.matcher(classNameInput);
             if (matcher.matches()){
-                return className;
+                return classNameInput;
             } else {
-                System.out.println("Mã lớp học viên phải có dạng A-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+                while (true){ System.out.println("Mã lớp học viên phải có dạng C-XXXXXX. Vui lòng nhập lại:");
+                System.out.println("Nhập mã lớp học viên:");
+                String className = scanner.nextLine();
+                matcher = pat.matcher(className);
             }
         }
     }
 
     public void removeStudent() {
         System.out.println("Nhập id học viên cần xóa:");
-        int id = Integer.parseInt(scanner.nextLine());
-        List<Student> students = iStudentSevice.findAll();
-
-        for (Student temp : students) {
-            if (temp.getId() == id) {
-                System.out.println("Học viên có id " + id + " đã tồn tại. Bạn có muốn xóa? (y/n)");
-                String choice = scanner.nextLine();
-                if (choice.equalsIgnoreCase("y")) {
-                    iStudentSevice.removeStudent(temp);
-                    System.out.println("Đã xóa thành công học viên với id: " + id);
-                    System.out.println();
-                    return;
-                } else {
-                    System.out.println("Đã hủy xóa học viên với id: " + id);
-                    System.out.println();
-                    return;
-                }
-            }
+        int idRemove = Integer.parseInt(scanner.nextLine());
+        if(isExist(idRemove)){
+            iStudentSevice.removeStudent(idRemove);
+            System.out.println("Đã xóa thành công học viên với id: " + idRemove);
+        } else{
+            System.out.println("Học viên không tồn tại với id: " + idRemove);
         }
-
-        System.out.println("Không tìm thấy học viên với id: " + id);
-        System.out.println();
     }
 
     public void editStudent() {
         System.out.println("Nhập id học viên cần chỉnh sửa:");
-        int id = Integer.parseInt(scanner.nextLine());
+        int  idEdit = Integer.parseInt(scanner.nextLine());
         List<Student> students = iStudentSevice.findAll();
+        if(isExist( idEdit)){
+            for (Student temp : students) {
+                if (temp.getId() ==  idEdit) {
+                    System.out.println("Học viên có id " +  idEdit + " đã tồn tại. Bạn có muốn chỉnh sửa? (y/n)");
+                    String choice = scanner.nextLine();
+                    if (choice.equalsIgnoreCase("y")) {
 
-        for (Student temp : students) {
-            if (temp.getId() == id) {
-                System.out.println("Học viên có id " + id + " đã tồn tại. Bạn có muốn chỉnh sửa? (y/n)");
-                String choice = scanner.nextLine();
-                if (choice.equalsIgnoreCase("y")) {
-
-                    System.out.println("Lựa chọn trường cần chỉnh sửa: \n" +
-                            "1. Mã học viên. \n" +
-                            "2. Tên học viên. \n" +
-                            "3. Ngày sinh học viên. \n" +
-                            "4. Email học viên. \n" +
-                            "5. Mã lớp học viên. \n" +
-                            "0. Thoát.\n"
-                    );
-                    System.out.println("Chọn thông tin cần chỉnh sửa: ");
-                    int choiceEdit = Integer.parseInt(scanner.nextLine());
-                    switch (choiceEdit) {
-                        case 1:
-                            System.out.println("Nhập mã học viên mới:");
-                            String code = scanner.nextLine();
-                            temp.setCode(code);
-                            break;
-                        case 2:
-                            System.out.println("Nhập tên học viên mới:");
-                            String name = scanner.nextLine();
-                            temp.setName(name);
-                            break;
-                        case 3:
-                            System.out.println("Nhập ngày sinh học viên mới:");
-                            LocalDate birthday = LocalDate.parse(scanner.nextLine());
-                            temp.setBirthday(birthday);
-                            break;
-                        case 4:
-                            System.out.println("Nhập email học viên mới:");
-                            String email = scanner.nextLine();
-                            temp.setEmail(email);
-                            break;
-                        case 5:
-                            System.out.println("Nhập mã lớp học viên mới:");
-                            String className = scanner.nextLine();
-                            temp.setClassName(className);
-                            break;
-                        case 0:
-                            exit(0);
-                            break;
+                        System.out.println("Lựa chọn trường cần chỉnh sửa: \n" +
+                                "1. Mã học viên. \n" +
+                                "2. Tên học viên. \n" +
+                                "3. Ngày sinh học viên. \n" +
+                                "4. Email học viên. \n" +
+                                "5. Mã lớp học viên. \n" +
+                                "0. Thoát.\n"
+                        );
+                        System.out.println("Chọn thông tin cần chỉnh sửa: ");
+                        int choiceEdit = Integer.parseInt(scanner.nextLine());
+                        switch (choiceEdit) {
+                            case 1:
+                                System.out.println("Nhập mã học viên mới:");
+                                String code = scanner.nextLine();
+                                temp.setCode(code);
+                                break;
+                            case 2:
+                                System.out.println("Nhập tên học viên mới:");
+                                String name = scanner.nextLine();
+                                temp.setName(name);
+                                break;
+                            case 3:
+                                System.out.println("Nhập ngày sinh học viên mới:");
+                                LocalDate birthday = LocalDate.parse(scanner.nextLine());
+                                temp.setBirthday(birthday);
+                                break;
+                            case 4:
+                                System.out.println("Nhập email học viên mới:");
+                                String email = scanner.nextLine();
+                                temp.setEmail(email);
+                                break;
+                            case 5:
+                                System.out.println("Nhập mã lớp học viên mới:");
+                                String className = scanner.nextLine();
+                                temp.setClassName(className);
+                                break;
+                            case 0:
+                                exit(0);
+                                break;
+                        }
+                        iStudentSevice.editStudent(temp);
+                        System.out.println("Đã cập nhật thành công!");
                     }
                 }
+
             }
-
+        } else{
+            System.out.println("ID "+  idEdit + " không tồn tại!");
         }
-
     }
 
     public void searchStudent() {
@@ -214,44 +219,5 @@ public class StudentController {
         System.out.println(result);
     }
 
-    public void writeStudentToCSV() {
-        File studentFile = new File("src/CaseStudy/Controller/Student/student.csv");
-        try (
-                FileWriter fileWriter = new FileWriter(studentFile);
-        ) {
-            List<Student> students = iStudentSevice.findAll();
-            for (Student student : students) {
-                fileWriter.write(student.getId() + "," + student.getCode() + "," + student.getName() + "," +
-                        student.getBirthday().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "," +
-                        student.getEmail() + "," + student.getClassName() + "\n");
-            }
-            System.out.println("Đã ghi thành công vào file CSV!");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readStudentFromCSV() {
-        File studentFile = new File("src/CaseStudy/Controller/Student/student.csv");
-        try (
-                FileReader fileReader = new FileReader(studentFile);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-        ) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] studentInfo = line.split(",");
-                int id = Integer.parseInt(studentInfo[0]);
-                String code = studentInfo[1];
-                String name = studentInfo[2];
-                LocalDate birthday = LocalDate.parse(studentInfo[3], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String email = studentInfo[4];
-                String className = studentInfo[5];
-                Student student = new Student(id, code, name, birthday, email, className);
-                System.out.println(student);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

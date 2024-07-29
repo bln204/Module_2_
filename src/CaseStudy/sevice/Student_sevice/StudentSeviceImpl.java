@@ -1,13 +1,12 @@
-package CaseStudy.sevice;
+package CaseStudy.sevice.Student_sevice;
 
 import CaseStudy.Model.Student;
-import CaseStudy.repository.IStudentRepository;
-import CaseStudy.repository.StudentRepositoryImpl;
+import CaseStudy.repository.Student_repo.IStudentRepository;
+import CaseStudy.repository.Student_repo.StudentRepositoryImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class StudentSeviceImpl implements IStudentSevice{
+public class StudentSeviceImpl implements IStudentSevice {
     private final IStudentRepository iStudentRepository = new StudentRepositoryImpl();
 
 
@@ -18,17 +17,13 @@ public class StudentSeviceImpl implements IStudentSevice{
 
     @Override
     public List<Student> searchStudent(Student student) {
-        return List.of();
+        return iStudentRepository.searchStudent(student);
     }
 
-    @Override
-    public void writeToCSV() {
-
-    }
 
     @Override
-    public List<Student> getStudents() {
-        return iStudentRepository.getStudents();
+    public Student findByID(int id) {
+        return iStudentRepository.findByID(id);
     }
 
     @Override
@@ -46,12 +41,12 @@ public class StudentSeviceImpl implements IStudentSevice{
     }
 
     @Override
-    public void removeStudent(Student student) {
-        iStudentRepository.removeStudent(student);
+    public void removeStudent(int id) {
+        iStudentRepository.removeStudent(id);
     }
 
     @Override
     public void editStudent(Student student) {
-
+        iStudentRepository.editStudent(student);
     }
 }

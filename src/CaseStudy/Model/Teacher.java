@@ -24,5 +24,7 @@ public class Teacher extends Person {
                 "salary=" + salary +
                 '}' + super.toString();
     }
-
+    public String convertToLine(){
+        return super.getId()+ "," + super.getCode() + "," + super.getName() + "," + super.getBirthday() + "," + super.getEmail() + "," + salary;
+    }
 }

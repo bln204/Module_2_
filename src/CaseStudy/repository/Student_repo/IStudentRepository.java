@@ -1,4 +1,4 @@
-package CaseStudy.repository;
+package CaseStudy.repository.Student_repo;
 
 import CaseStudy.Model.Student;
 
@@ -9,13 +9,12 @@ public interface IStudentRepository {
 
     void addStudent(Student student);
 
-    void removeStudent(Student student);
+    void removeStudent(int id);
 
     void editStudent(Student student);
 
-    List<Student> searchStundent(Student student);
+    List<Student> searchStudent(Student student);
 
-    void writeToCSV();
+    Student findByID(int id);
 
-    List<Student> getStudents();
 }

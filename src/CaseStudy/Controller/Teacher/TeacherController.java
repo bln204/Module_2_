@@ -2,8 +2,8 @@ package CaseStudy.Controller.Teacher;
 
 import CaseStudy.Model.Student;
 import CaseStudy.Model.Teacher;
-import CaseStudy.sevice.ITeacherSevice;
-import CaseStudy.sevice.TeacherSeviceImpl;
+import CaseStudy.sevice.Teacher_sevice.ITeacherSevice;
+import CaseStudy.sevice.Teacher_sevice.TeacherSeviceImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,28 +49,13 @@ public class TeacherController {
 
     public void removeTeacher() {
         System.out.println("Nhập id giảng viên cần xóa:");
-        int id = Integer.parseInt(scanner.nextLine());
-        List<Teacher> students = iTeacherSevice.findAll();
-
-        for (Teacher temp : students) {
-            if (temp.getId() == id) {
-                System.out.println("Giảng viên có id " + id + " đã tồn tại. Bạn có muốn xóa? (y/n)");
-                String choice = scanner.nextLine();
-                if (choice.equalsIgnoreCase("y")) {
-                    iTeacherSevice.removeTeacher(temp);
-                    System.out.println("Đã xóa thành công giảng viên với id: " + id);
-                    System.out.println();
-                    return;
-                } else {
-                    System.out.println("Đã hủy xóa giảng viên với id: " + id);
-                    System.out.println();
-                    return;
-                }
-            }
+        int idRemove = Integer.parseInt(scanner.nextLine());
+        if (isExist(idRemove)) {
+            iTeacherSevice.removeTeacher(idRemove);
+            System.out.println("Đã xóa thành công giảng viên với id: " + idRemove);
+        } else {
+            System.out.println("Giảng viên không tồn tại với id: " + idRemove);
         }
-
-        System.out.println("Không tìm thấy giảng viên với id: " + id);
-        System.out.println();
     }
 
     public void editTeacher() {
@@ -143,4 +128,12 @@ public class TeacherController {
         }
         System.out.println(result);
     }
+
+    public boolean isExist(int id) {
+        Teacher teacher = iTeacherSevice.findByID(id);
+        return teacher != null;
+    }
 }
+
+
+

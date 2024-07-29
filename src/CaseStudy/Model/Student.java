@@ -19,6 +19,10 @@ public class Student extends Person {
         this.className = className;
     }
 
+    public String convertToLine(){
+        return super.getId()+ "," + super.getCode() + "," + super.getName() + "," + super.getBirthday() + "," + super.getEmail() + "," + className;
+    }
+
     @Override
     public String toString() {
         return "Student{" +

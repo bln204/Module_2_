@@ -1,4 +1,4 @@
-package CaseStudy.sevice;
+package CaseStudy.sevice.Student_sevice;
 
 import CaseStudy.Model.Student;
 
@@ -7,9 +7,8 @@ import java.util.List;
 public interface IStudentSevice {
     List<Student> findAll();
     void addStudent(Student student);
-    void removeStudent(Student student);
+    void removeStudent(int id);
     void editStudent(Student student);
     List<Student> searchStudent(Student student);
-    void writeToCSV ();
-    List<Student> getStudents();
+    Student findByID(int id);
 }

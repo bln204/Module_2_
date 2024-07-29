@@ -46,9 +46,7 @@ public class CodeGymManagement {
                     "3. Chỉnh sửa thông tin học viên. \n" +
                     "4. Xóa học viên. \n" +
                     "5. Tìm kiếm học viên. \n" +
-                    "6. Nhập học viên vào file CSV.\n" +
-                    "7. Xuất học viên từ file CSV.\n" +
-                    "8. Quay về. \n"
+                    "6. Quay về. \n"
             );
             int choiceStudent = Integer.parseInt(scanner.nextLine());
             switch (choiceStudent){
@@ -67,13 +65,7 @@ public class CodeGymManagement {
                 case 5:
                     studentController.searchStudent();
                     break;
-                case 6 :
-                    studentController.writeStudentToCSV();
-                    break;
-                case 7:
-                    studentController.readStudentFromCSV();
-                    break;
-                case 8:
+                case 6:
                     return;
             }
 
