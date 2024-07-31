@@ -6,7 +6,6 @@ import CaseStudy.sevice.Student_sevice.IStudentSevice;
 import CaseStudy.sevice.Student_sevice.StudentSeviceImpl;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,25 +33,21 @@ public class StudentController {
 
         for (int i = 0; i < number; i++) {
             System.out.println("Nhập thông tin học viên thứ " + (i + 1) + ":");
-//            System.out.println("Nhập id học viên:");
-//            int id = Integer.parseInt(scanner.nextLine());
             System.out.println("Nhập mã học viên có dạng HV-XXX:");
             String codeTemp = scanner.nextLine();
             String code = regexCode(codeTemp);
             System.out.println("Nhập tên học viên");
-            String name = scanner.nextLine();
-            System.out.println("Nhập ngày sinh học viên dạng dd-MM-yyyy: ");
-//            String birthdayTemp = scanner.nextLine();
-//            LocalDate birthday = regexBirthday(birthdayTemp);
-            LocalDate birthday = LocalDate.parse(scanner.nextLine());
+            String nameTemp = scanner.nextLine();
+            String name = regexName(nameTemp);
+            System.out.println("Nhập ngày sinh học viên dạng yyyy-MM-dd: ");
+            String birthdayTemp = scanner.nextLine();
+            LocalDate birthday = regexBirthday(birthdayTemp);
             System.out.println("Nhập email học viên:");
-//            String emailTemp =  scanner.nextLine();
-//            String email = regexEmail(emailTemp);
-            String email = scanner.nextLine();
+            String emailTemp =  scanner.nextLine();
+            String email = regexEmail(emailTemp);
             System.out.println("Nhập mã lớp học viên: ");
-//            String classNameTemp = scanner.nextLine();
-//            String className = regexClassName(classNameTemp);
-            String className = scanner.nextLine();
+            String classNameTemp = scanner.nextLine();
+            String className = regexClassName(classNameTemp);
             Student student = new Student(0, code, name, birthday, email, className);
             iStudentSevice.addStudent(student);
         }
@@ -71,64 +66,91 @@ public class StudentController {
         Pattern pat = Pattern.compile(codeRegex);
         Matcher matcher = pat.matcher(codeInput);
 
-            if (matcher.matches()) {
-                return codeInput;
-            } else {
-                while (true) {
-                    System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
-                    System.out.println("Nhập lại mã học viên:");
-                    codeInput = scanner.nextLine();
-                    pat.matcher(codeInput);
+        if (matcher.matches()) {
+            return codeInput;
+        } else {
+            while (true) {
+                System.out.println("Mã học viên phải có dạng HV-XXX với XXX là số 3 chữ số. Vui lòng nhập lại:");
+                codeInput = scanner.nextLine();
+                matcher = pat.matcher(codeInput);
+                if (matcher.matches()) {
+                    return codeInput;
+                }
             }
         }
     }
 
-    public static LocalDate regexBirthday (String birthdayInput){
-        String birthdayRegex  = "^([0-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(\\d{4})$";
+    public static String regexName(String nameInput) {
+        String nameRegex = "^[a-zA-Z\\s]+$";
+        Pattern pat = Pattern.compile(nameRegex);
+        Matcher matcher = pat.matcher(nameInput);
+
+        if (matcher.matches()) {
+            return nameInput;
+        } else {
+            while (true) {
+                System.out.println("Tên chỉ được chứa các chữ cái và khoảng trắng. Vui lòng nhập lại:");
+                nameInput = scanner.nextLine();
+                matcher = pat.matcher(nameInput);
+                if (matcher.matches()) {
+                    return nameInput;
+                }
+            }
+        }
+    }
+
+    public static LocalDate regexBirthday(String birthdayInput) {
+        String birthdayRegex  = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
         Pattern pat = Pattern.compile(birthdayRegex);
         Matcher matcher = pat.matcher(birthdayInput);
 
-            if (matcher.matches()){
-                LocalDate birthday = LocalDate.parse(birthdayInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                return birthday;
-            } else {
-                while (true){
-                    System.out.println("Ngày sinh phải có dạng dd-MM-yyyy. Vui lòng nhập lại:");
-                    System.out.println("Nhập lại ngày sinh học viên (dd-MM-yyyy):");
-                    birthdayInput = scanner.nextLine();
-                    pat.matcher(birthdayInput);
+        if (matcher.matches()){
+            return LocalDate.parse(birthdayInput);
+        } else {
+            while (true){
+                System.out.println("Ngày sinh phải có dạng yyyy-MM-dd. Vui lòng nhập lại:");
+                birthdayInput = scanner.nextLine();
+                matcher = pat.matcher(birthdayInput);
+                if (matcher.matches()) {
+                    return LocalDate.parse(birthdayInput);
+                }
             }
         }
     }
 
     public static String regexEmail(String emailInput) {
-        String emailRegex = "\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b ";
+        String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
         Pattern pat = Pattern.compile(emailRegex);
         Matcher matcher = pat.matcher(emailInput);
 
-            if (matcher.matches()){
-                return emailInput;
-            } else {
-                while (true){
-                    System.out.println("Email phải có dạng tài khoản email và phải đúng định dạng. Vui lòng nhập lại:");
-                    System.out.println("Nhập lại email học viên:");
-                    String email = scanner.nextLine();
-                    pat.matcher(email);
+        if (matcher.matches()){
+            return emailInput;
+        } else {
+            while (true){
+                System.out.println("Email phải có dạng tài khoản email và phải đúng định dạng. Vui lòng nhập lại:");
+                emailInput = scanner.nextLine();
+                matcher = pat.matcher(emailInput);
+                if (matcher.matches()) {
+                    return emailInput;
+                }
             }
         }
     }
 
     public static String regexClassName(String classNameInput){
-        String classNameRegex = "^C\\\\w{6}$";
+        String classNameRegex = "^C\\w{6}$";
         Pattern pat = Pattern.compile(classNameRegex);
         Matcher matcher = pat.matcher(classNameInput);
-            if (matcher.matches()){
-                return classNameInput;
-            } else {
-                while (true){ System.out.println("Mã lớp học viên phải có dạng C-XXXXXX. Vui lòng nhập lại:");
-                System.out.println("Nhập mã lớp học viên:");
-                String className = scanner.nextLine();
-                matcher = pat.matcher(className);
+        if (matcher.matches()){
+            return classNameInput;
+        } else {
+            while (true){
+                System.out.println("Mã lớp học viên phải có dạng C-XXXXXX. Vui lòng nhập lại:");
+                classNameInput = scanner.nextLine();
+                matcher = pat.matcher(classNameInput);
+                if (matcher.matches()) {
+                    return classNameInput;
+                }
             }
         }
     }
@@ -167,28 +189,33 @@ public class StudentController {
                         int choiceEdit = Integer.parseInt(scanner.nextLine());
                         switch (choiceEdit) {
                             case 1:
-                                System.out.println("Nhập mã học viên mới:");
-                                String code = scanner.nextLine();
+                                System.out.println("Nhập mã học viên mới có dạng HV-XXX:");
+                                String codeTemp = scanner.nextLine();
+                                String code = regexCode(codeTemp);
                                 temp.setCode(code);
                                 break;
                             case 2:
                                 System.out.println("Nhập tên học viên mới:");
-                                String name = scanner.nextLine();
+                                String nameTemp = scanner.nextLine();
+                                String name = regexName(nameTemp);
                                 temp.setName(name);
                                 break;
                             case 3:
-                                System.out.println("Nhập ngày sinh học viên mới:");
-                                LocalDate birthday = LocalDate.parse(scanner.nextLine());
+                                System.out.println("Nhập ngày sinh học viên mới dạng yyyy-MM-dd: ");
+                                String birthdayTemp = scanner.nextLine();
+                                LocalDate birthday = regexBirthday(birthdayTemp);
                                 temp.setBirthday(birthday);
                                 break;
                             case 4:
                                 System.out.println("Nhập email học viên mới:");
-                                String email = scanner.nextLine();
+                                String emailTemp =  scanner.nextLine();
+                                String email = regexEmail(emailTemp);
                                 temp.setEmail(email);
                                 break;
                             case 5:
                                 System.out.println("Nhập mã lớp học viên mới:");
-                                String className = scanner.nextLine();
+                                String classNameTemp = scanner.nextLine();
+                                String className = regexClassName(classNameTemp);
                                 temp.setClassName(className);
                                 break;
                             case 0:
@@ -208,11 +235,11 @@ public class StudentController {
 
     public void searchStudent() {
         System.out.println("Nhập tên học viên cần tìm: ");
-        String temName = scanner.nextLine();
+        String tempName = scanner.nextLine();
         List<Student> result = new ArrayList<>();
         List<Student> students = iStudentSevice.findAll();
         for (Student student : students) {
-            if (student.getName().contains(temName)) {
+            if (student.getName().contains(tempName)) {
                 result.add(student);
             }
         }

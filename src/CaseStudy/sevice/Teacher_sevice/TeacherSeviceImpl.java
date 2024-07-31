@@ -1,6 +1,7 @@
 package CaseStudy.sevice.Teacher_sevice;
 
 import CaseStudy.Model.Teacher;
+import CaseStudy.common.IOStreamTeacher;
 import CaseStudy.repository.Teacher_repo.ITeacherRepository;
 import CaseStudy.repository.Teacher_repo.TeacherRepositoryImpl;
 
@@ -41,11 +42,12 @@ public class TeacherSeviceImpl implements ITeacherSevice {
 
     @Override
     public void editTeacher(Teacher teacher) {
+        iTeacherRepository.editTeacher(teacher);
 
     }
 
     @Override
     public List<Teacher> findAll() {
-        return iTeacherRepository.findAll();
+        return IOStreamTeacher.convertToListStudent();
     }
 }

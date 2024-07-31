@@ -2,6 +2,7 @@ package CaseStudy.View;
 
 import CaseStudy.Controller.Student.StudentController;
 import CaseStudy.Controller.Teacher.TeacherController;
+import CaseStudy.common.IOStreamStudent;
 
 import java.util.Scanner;
 
